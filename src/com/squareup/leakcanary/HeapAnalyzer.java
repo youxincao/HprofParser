@@ -15,18 +15,10 @@
  */
 package com.squareup.leakcanary;
 
-import com.squareup.haha.perflib.ArrayInstance;
-import com.squareup.haha.perflib.ClassInstance;
-import com.squareup.haha.perflib.ClassObj;
-import com.squareup.haha.perflib.Field;
-import com.squareup.haha.perflib.HprofParser;
-import com.squareup.haha.perflib.Instance;
-import com.squareup.haha.perflib.RootObj;
-import com.squareup.haha.perflib.RootType;
-import com.squareup.haha.perflib.Snapshot;
-import com.squareup.haha.perflib.Type;
-import com.squareup.haha.perflib.io.HprofBuffer;
-import com.squareup.haha.perflib.io.MemoryMappedFileBuffer;
+import com.android.tools.perflib.heap.*;
+import com.android.tools.perflib.heap.io.HprofBuffer;
+import com.android.tools.perflib.heap.io.MemoryMappedFileBuffer;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
