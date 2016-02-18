@@ -11,6 +11,10 @@ public class NativeHprofBuffer implements HprofBuffer {
     private long mCurPosition;
     private long mLength;
 
+    static {
+        System.loadLibrary("nativeHprofBuffer");
+    }
+
     public NativeHprofBuffer(File file) throws IOException {
 
         String filePath = file.getAbsolutePath();
@@ -29,6 +33,11 @@ public class NativeHprofBuffer implements HprofBuffer {
      * @implNote 也许使用文件路径会比较合适, 但是为了兼容LeakCananry的用法使用文件句柄
      */
     native long mapFileToMemory(String filePath) throws IOException;
+
+    /**
+     * 释放native内存
+     */
+    native int releaseNativeMemory() throws IOException;
 
     /**
      * 从指定的位置读取一个byte
