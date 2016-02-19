@@ -61,7 +61,7 @@ public class NativeHprofBuffer implements HprofBuffer {
      * @param pos 指定的位置
      * @return 读取到的值
      */
-    native Short nativeReadShort(long pos);
+    native short nativeReadShort(long pos);
 
     /**
      * 从指定的位置读取一个int
@@ -95,6 +95,8 @@ public class NativeHprofBuffer implements HprofBuffer {
      */
     native double nativeReadDouble(long pos);
 
+    native byte[] readByteArray(int start, int length);
+
     @Override
     public byte readByte() {
         byte result = nativeReadByte(mCurPosition);
@@ -104,12 +106,19 @@ public class NativeHprofBuffer implements HprofBuffer {
 
     @Override
     public void read(byte[] b) {
-
+        readSubSequence(b, (int)mCurPosition, b.length);
     }
 
     @Override
-    public void readSubSequence(byte[] b, int sourceStart, int sourceEnd) {
-
+    public void readSubSequence(byte[] b, int sourceStart, int length) {
+        byte [] arr = readByteArray(sourceStart,length);
+        if( arr != null ){
+            // data return is more than needed
+            if( arr.length > b.length )
+                return;
+            System.arraycopy(arr, 0, b, 0, b.length);
+            mCurPosition += arr.length;
+        }
     }
 
     @Override

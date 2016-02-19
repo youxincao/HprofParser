@@ -65,7 +65,14 @@ public class NativeHprofBufferTest {
 
     @org.junit.Test
     public void testRead() throws Exception {
+        byte [] expertBuf = new byte[16];
+        byte [] actualBuf = new byte[16];
 
+        for( int i = 0; i <= TEST_COUNT; i ++ ) {
+            mOriginBuffer.read(expertBuf);
+            mBuffer.read(actualBuf);
+            assertArrayEquals(expertBuf, actualBuf);
+        }
     }
 
     @org.junit.Test
@@ -95,7 +102,22 @@ public class NativeHprofBufferTest {
 
     @org.junit.Test
     public void testReadShort() throws Exception {
+        Random r = new Random();
+        int count = 0 ;
+        long pos;
 
+        while( count < TEST_COUNT ) {
+
+            pos = r.nextInt(1024);
+            mOriginBuffer.setPosition(pos);
+            mBuffer.setPosition(pos);
+
+            short expertShort = mOriginBuffer.readShort();
+            short actualShort = mBuffer.readShort();
+            assertEquals(expertShort, actualShort);
+
+            count ++;
+        }
     }
 
     @org.junit.Test
@@ -120,16 +142,61 @@ public class NativeHprofBufferTest {
 
     @org.junit.Test
     public void testReadLong() throws Exception {
+        Random r = new Random();
+        int count = 0 ;
+        long pos;
 
+        while( count < TEST_COUNT ) {
+
+            pos = r.nextInt(1024);
+            mOriginBuffer.setPosition(pos);
+            mBuffer.setPosition(pos);
+
+            long expertLong = mOriginBuffer.readLong();
+            long actualLong = mBuffer.readLong();
+            assertEquals(expertLong, actualLong);
+
+            count ++;
+        }
     }
 
     @org.junit.Test
     public void testReadFloat() throws Exception {
+        Random r = new Random();
+        int count = 0 ;
+        long pos;
 
+        while( count < TEST_COUNT ) {
+
+            pos = r.nextInt(1024);
+            mOriginBuffer.setPosition(pos);
+            mBuffer.setPosition(pos);
+
+            float expertFloat = mOriginBuffer.readFloat();
+            float actualFloat = mBuffer.readFloat();
+            assertEquals(expertFloat, actualFloat, 0.01);
+
+            count ++;
+        }
     }
 
     @org.junit.Test
     public void testReadDouble() throws Exception {
+        Random r = new Random();
+        int count = 0 ;
+        long pos;
 
+        while( count < TEST_COUNT ) {
+
+            pos = r.nextInt(1024);
+            mOriginBuffer.setPosition(pos);
+            mBuffer.setPosition(pos);
+
+            double expertDouble = mOriginBuffer.readDouble();
+            double actualDouble = mBuffer.readDouble();
+            assertEquals(expertDouble, actualDouble, 0.01);
+
+            count ++;
+        }
     }
 }
